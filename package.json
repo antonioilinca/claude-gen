@@ -6,14 +6,36 @@
   "bin": {
     "claude-gen": "src/index.js"
   },
+  "files": [
+    "src/",
+    "README.md"
+  ],
   "keywords": [
     "claude",
     "claude-code",
     "claude-md",
+    "claudemd",
+    "generator",
     "codegen",
+    "scaffold",
     "developer-tools",
-    "ai"
+    "devtools",
+    "cli",
+    "ai",
+    "anthropic",
+    "project-setup",
+    "auto-generate",
+    "codebase-scanner",
+    "documentation",
+    "onboarding",
+    "zero-config"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antonioilinca/claude-gen"
+  },
+  "homepage": "https://github.com/antonioilinca/claude-gen",
+  "author": "Antonio Ilinca",
   "license": "MIT",
   "dependencies": {
     "chalk": "^4.1.2",

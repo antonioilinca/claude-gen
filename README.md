@@ -1,97 +1,120 @@
 # claude-gen
 
-Auto-generate `CLAUDE.md` from any codebase. Zero config, instant, offline.
+> Auto-generate `CLAUDE.md` from any codebase. One command. Zero config.
 
-Point it at a project directory. It scans everything — `package.json`, `tsconfig.json`, ESLint, Prettier, Git history, CI/CD, directory structure — and generates a complete `CLAUDE.md` that makes Claude Code actually understand your project.
+```
+  claude-gen — scanning project...
 
-## Why
+  Language:    TypeScript/JavaScript
+  Pkg manager: npm
+  Frameworks:  Next.js, React, Tailwind CSS, Supabase, Stripe, Resend, Vercel
+  TypeScript:  strict
+  Testing:     Vitest + Playwright
+  Linting:     ESLint + Prettier
+  Deploy:      Vercel
 
-95% of projects using Claude Code either don't have a `CLAUDE.md` or have a bad one. This is the single highest-leverage thing you can do to improve Claude Code's output. `claude-gen` does it in 2 seconds.
-
-## Install
-
-```bash
-git clone https://github.com/your-org/claude-gen.git
-cd claude-gen
-npm install
-npm link  # makes `claude-gen` available globally
+  Written to CLAUDE.md
+  47 lines generated
 ```
 
-## Usage
+**95% of Claude Code projects don't have a CLAUDE.md.** The ones that do usually wrote it by hand and missed half their stack. This tool scans your entire project and generates one automatically.
+
+## Try it
 
 ```bash
-# Scan current directory, write CLAUDE.md
-claude-gen
-
-# Scan a specific project
-claude-gen /path/to/project
-
-# Print to stdout (don't write file)
-claude-gen --stdout
-
-# Merge with existing CLAUDE.md (keeps your custom sections)
-claude-gen --merge
-
-# Custom output path
-claude-gen -o /path/to/output/CLAUDE.md
-
-# Raw scan data as JSON
-claude-gen --json
+npx claude-gen
 ```
+
+That's it. CLAUDE.md appears in your project root. Done.
 
 ## What it detects
 
-| Category | Details |
+| Category | Examples |
 |----------|---------|
-| **Language** | JS/TS, Python, Go, Rust |
-| **Package manager** | npm, yarn, pnpm, bun, pip, poetry, uv, cargo, go modules |
-| **Frameworks** | Next.js (App/Pages Router), React, Vue, Nuxt, Svelte, Angular, Astro, Remix, Express, FastAPI, Django, NestJS, Hono, Gin, and 30+ more |
+| **Frameworks** | Next.js (App/Pages Router), React, Vue, Nuxt, Svelte, Angular, Astro, Remix, Express, FastAPI, Django, NestJS, Hono, Gin, Rails, and 30+ more |
 | **Database/ORM** | Prisma, Drizzle, Supabase, Firebase, Mongoose, TypeORM, Sequelize, SQLAlchemy |
 | **CSS/UI** | Tailwind, shadcn/ui, Chakra UI, Material UI, Styled Components |
 | **Auth** | NextAuth, Clerk, Lucia |
 | **Payments** | Stripe, LemonSqueezy |
-| **Testing** | Vitest, Jest, Mocha, Pytest, Playwright, Cypress + test directories |
+| **Testing** | Vitest, Jest, Mocha, Pytest, Playwright, Cypress |
 | **Linting** | ESLint (flat config detection), Prettier (options extraction), Biome |
 | **TypeScript** | Strict mode, path aliases, compiler options |
-| **Git** | Commit convention (conventional, emoji, etc.), branch strategy, active files |
+| **Git** | Commit convention (conventional, emoji, etc.), branch strategy |
 | **CI/CD** | GitHub Actions, GitLab CI, CircleCI, Travis, Jenkins, Azure Pipelines |
-| **Deployment** | Vercel, Netlify, Railway, Fly.io, Docker, AWS, GCP, Heroku |
+| **Deploy** | Vercel, Netlify, Railway, Fly.io, Docker, AWS, GCP, Heroku |
 | **Monorepo** | Turborepo, Nx, Lerna, pnpm workspaces |
-| **Git hooks** | Husky, lint-staged, commitlint |
+| **Language** | JS/TS, Python, Go, Rust |
+| **Pkg manager** | npm, yarn, pnpm, bun, pip, poetry, uv, cargo, go modules |
 
 ## Generated output
 
-The generated `CLAUDE.md` includes:
+```markdown
+# my-project
 
-1. **Project name & description** — from package.json/pyproject.toml
-2. **Tech Stack** — frameworks, language, package manager
-3. **Commands** — dev, build, test, lint, format, typecheck, db commands
-4. **Architecture** — key directories, monorepo structure, env file setup
-5. **Code Conventions** — from TypeScript config, ESLint, Prettier, Git history
-6. **Rules** — enforceable rules based on project setup (testing, linting, env, destructive ops, migrations, CI)
+## Tech Stack
+**Language:** TypeScript/JavaScript (strict mode)
+**Stack:** Next.js, React, Tailwind CSS, Supabase, Stripe
+**Router:** App Router
+**Package manager:** pnpm
 
-## Merge mode
+## Commands
+- **Dev server:** `pnpm dev`
+- **Build:** `pnpm build`
+- **Test:** `pnpm test`
+- **Lint:** `pnpm lint`
+- **Typecheck:** `npx tsc --noEmit`
 
-Already have a `CLAUDE.md` with custom instructions? Use `--merge`:
+## Architecture
+Key directories:
+- `src/app/` — Next.js App Router
+- `src/components/` — React components
+- `src/lib/` — Shared library code
+- `prisma/` — Prisma schema and migrations
 
-```bash
-claude-gen --merge
+## Code Conventions
+- TypeScript strict mode — no `any` types
+- Prettier (single quotes, no semicolons, 2-space indent)
+- Conventional Commits (feat:, fix:, chore:)
+- Tailwind CSS utility classes — avoid custom CSS
+
+## Rules
+- ALWAYS read a file before editing it
+- Run tests before committing changes
+- NEVER commit .env files or hardcode secrets
+- NEVER use `rm -rf`, `git push --force` without approval
+- Database migrations require explicit confirmation
 ```
 
-This keeps your custom sections and updates the auto-generated ones. Sections with the same heading get replaced; custom sections are preserved.
-
-## JSON mode
-
-Get raw scan data for scripting or piping:
+## Options
 
 ```bash
-claude-gen --json | jq '.framework.frameworks'
-# ["Next.js", "React", "Tailwind CSS", "Supabase", "Stripe"]
+claude-gen                       # scan current dir, write CLAUDE.md
+claude-gen /path/to/project      # scan specific project
+claude-gen --stdout              # print to terminal (don't write file)
+claude-gen --merge               # merge with existing CLAUDE.md
+claude-gen --json                # raw scan data as JSON
+claude-gen -o custom/path.md     # custom output path
 ```
 
-## Zero dependencies (almost)
+## Part of the Claude Code Toolkit
 
-Only `commander` and `chalk`. No AI, no network calls, no heavy processing. Runs in under a second on any project.
+| Tool | What it does |
+|------|-------------|
+| [claude-score](https://github.com/antonioilinca/claude-score) | Score your setup A-F, see what's missing |
+| **claude-gen** | Generate CLAUDE.md from your codebase |
+| [claude-enforce](https://github.com/antonioilinca/claude-enforce) | Convert rules into deterministic hooks |
+
+```bash
+npx claude-score       # diagnose
+npx claude-gen         # fix
+npx claude-enforce init  # protect
+```
+
+## How it works
+
+Zero AI. Zero network calls. Pure static analysis. Reads your config files, detects your stack, generates instructions. Under 1 second.
+
+Only dependencies: `commander` and `chalk`.
 
 ## License
 
