@@ -1,5 +1,5 @@
 {
-  "name": "claude-gen",
+  "name": "claudemd-gen",
   "version": "1.0.0",
   "description": "Auto-generate CLAUDE.md from any codebase — zero config, instant, offline",
   "main": "src/index.js",

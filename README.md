@@ -22,7 +22,7 @@
 ## Try it
 
 ```bash
-npx claude-gen
+npx claudemd-gen
 ```
 
 That's it. CLAUDE.md appears in your project root. Done.
@@ -106,7 +106,7 @@ claude-gen -o custom/path.md     # custom output path
 
 ```bash
 npx claude-score       # diagnose
-npx claude-gen         # fix
+npx claudemd-gen         # fix
 npx claude-enforce init  # protect
 ```
 
