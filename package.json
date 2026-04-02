@@ -1,0 +1,22 @@
+{
+  "name": "claude-gen",
+  "version": "1.0.0",
+  "description": "Auto-generate CLAUDE.md from any codebase — zero config, instant, offline",
+  "main": "src/index.js",
+  "bin": {
+    "claude-gen": "src/index.js"
+  },
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-md",
+    "codegen",
+    "developer-tools",
+    "ai"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^12.1.0"
+  }
+}
